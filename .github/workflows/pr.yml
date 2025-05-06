@@ -1,0 +1,28 @@
+---
+    name: "spring-petclinic"
+    
+    on:
+        pull_request:
+            branches:
+               - main
+    
+    jobs:
+        build:  
+           runs-on: "ubuntu-24.04"       
+           steps:
+              - uses: actions/checkout@v4
+              - name: mvn package
+                run: mvn package
+    
+              - uses: actions/upload-artifact@v4
+                with:
+                  name: spring-artifact
+                  path: target/*.jar
+    
+              - name: Publish Test Results
+                uses: EnricoMi/publish-unit-test-result-action@v2
+                if: always()
+                with:
+                  files: |
+                       **/surefire-reports/*.xml
+                     
