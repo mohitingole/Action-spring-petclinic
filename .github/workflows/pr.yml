@@ -25,4 +25,5 @@
                 with:
                   files: |
                        **/surefire-reports/*.xml
+                       
                      
